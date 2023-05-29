@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flavor/core/consts.dart';
 import 'package:flavor/modules/login/login_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,10 +14,12 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const LoginPage(),
+      name: AppRoutes.login.name,
     ),
     GoRoute(
       path: '/home',
       builder: (context, state) => const HomePage(),
+      name: AppRoutes.home.name,
     ),
   ],
   redirect: (context, state) {

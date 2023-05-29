@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flavor/core/models/user_data.dart';
+import 'package:flavor/core/services/login_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,9 +14,17 @@ import '../../../firebase_options.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(const LoginState.initial());
+  final LoginService _loginService;
+  final FirebaseAuth _firebaseAuthInstance;
 
-  Future<UserCredential?> signInWithGoogle() async {
+  LoginCubit({
+    required LoginService loginService,
+    required FirebaseAuth firebaseAuthInstance,
+  })  : _loginService = loginService,
+        _firebaseAuthInstance = firebaseAuthInstance,
+        super(const LoginState.initial());
+
+  Future<void> signInWithGoogle() async {
     try {
       emit(state.copyWith(status: ScreenStatus.loading));
       // Trigger the authentication flow
@@ -28,27 +38,41 @@ class LoginCubit extends Cubit<LoginState> {
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
-      if (googleAuth != null) {
+      if (googleAuth != null && googleUser != null) {
         final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
-        // Once signed in, return the UserCredential
-        emit(state.copyWith(status: ScreenStatus.completed));
 
-        return await FirebaseAuth.instance.signInWithCredential(credential);
+        final signInResult =
+            await _firebaseAuthInstance.signInWithCredential(credential);
+
+        if (signInResult.credential != null) {
+          final result = await _loginService.login(
+            UserData(
+              name: googleUser.displayName,
+              id: googleUser.id,
+              email: googleUser.email,
+            ),
+          );
+          if (result) {
+            emit(state.copyWith(status: ScreenStatus.completed));
+          } else {
+            emit(state.copyWith(
+              status: ScreenStatus.error,
+              errorMessage: 'Error to register your user, try again',
+            ));
+          }
+        }
       } else {
         emit(state.copyWith(
           status: ScreenStatus.error,
-          errorMessage: 'Error to sign in, try again',
         ));
-        return null;
       }
     } catch (e) {
       log(e.toString());
       emit(state.copyWith(
           status: ScreenStatus.error, errorMessage: e.toString()));
-      return null;
     }
   }
 
