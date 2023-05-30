@@ -1,7 +1,7 @@
 # validates any pull request that has master branch as base
 # this validations will first find all pubspec.yaml files and then
 # run their configurations in parallel
-name: pull-request
+name: validations
 on:
   pull_request:
     branches: [master]
