@@ -1,42 +1,27 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Dart
-
+# validates any pull request that has master branch as base
+# this validations will first find all pubspec.yaml files and then
+# run their configurations in parallel
+name: pull-request
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [master]
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      # Uncomment this step to verify the use of 'dart format' on each commit.
-      # - name: Verify formatting
-      #   run: dart format --output=none --set-exit-if-changed .
-
-      # Consider passing '--fatal-infos' for slightly stricter analysis.
-      - name: Analyze project source
-        run: dart analyze
-
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:' # optional, change this to force refresh cache
+          cache-path: ${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch: # optional, change this to specify the cache path
+          architecture: x64 # optional, x64 or arm64
+      - run: flutter --version
+      - name: pub-get-all
+        run: make pub-get-all
+      - name: Analyze
+        run: make analyze-all
       - name: Run tests
-        run: flutter test
+        run: make test-all
