@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
               BlocConsumer<LoginCubit, LoginState>(
                 listener: (context, state) {
                   if (state.status == ScreenStatus.completed) {
-                    context.pushNamed(AppRoutes.home.name);
+                    context.pushNamed(AppRoutes.dashboard.name);
                   }
                 },
                 builder: (context, state) {

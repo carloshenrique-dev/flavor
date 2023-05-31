@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDQ7VF-pen19AsLiWf2_dbqDiJUUMwcaho',
-    appId: '1:789094005698:android:be6a2b3925ffbe6e1f745b',
+    appId: '1:789094005698:android:59ec5f003363c69b1f745b',
     messagingSenderId: '789094005698',
     projectId: 'flavor-59670',
     storageBucket: 'flavor-59670.appspot.com',
@@ -59,12 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCDTgTp3Wf-My0W8F3lKiSZiW7QIbiEeI0',
-    appId: '1:789094005698:ios:8ead4c5361033d3c1f745b',
+    appId: '1:789094005698:ios:1fc241429654f8ca1f745b',
     messagingSenderId: '789094005698',
     projectId: 'flavor-59670',
     storageBucket: 'flavor-59670.appspot.com',
     androidClientId: '789094005698-1bjodv8i73rp6d0u2qo1q7mmh9rknq5p.apps.googleusercontent.com',
-    iosClientId: '789094005698-cabd8grrp488nvsd98bl555jqk54luqg.apps.googleusercontent.com',
-    iosBundleId: 'com.example.flavor',
+    iosClientId: '789094005698-b2io9kpj1p9hnqs1sgchtae4m79jnetv.apps.googleusercontent.com',
+    iosBundleId: 'com.owllabs.flavor',
   );
 }

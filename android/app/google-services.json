@@ -7,18 +7,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:789094005698:android:be6a2b3925ffbe6e1f745b",
+        "mobilesdk_app_id": "1:789094005698:android:59ec5f003363c69b1f745b",
         "android_client_info": {
-          "package_name": "com.example.flavor"
+          "package_name": "com.owl_labs.flavor"
         }
       },
       "oauth_client": [
         {
-          "client_id": "789094005698-1bjodv8i73rp6d0u2qo1q7mmh9rknq5p.apps.googleusercontent.com",
+          "client_id": "789094005698-mbalc8h621rmolh3j8voa280q20oj14r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.flavor",
+            "package_name": "com.owl_labs.flavor",
             "certificate_hash": "50a9382ca2e9f50f6613c5193b7816d84b90eb23"
+          }
+        },
+        {
+          "client_id": "789094005698-sks2nfiulo8k0r6962dgrs0gfknpmstg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.owl_labs.flavor",
+            "certificate_hash": "2585c32a0a7f5acdaec336f6d23210e806c7bf0e"
           }
         },
         {
@@ -39,10 +47,10 @@
               "client_type": 3
             },
             {
-              "client_id": "789094005698-cabd8grrp488nvsd98bl555jqk54luqg.apps.googleusercontent.com",
+              "client_id": "789094005698-b2io9kpj1p9hnqs1sgchtae4m79jnetv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.flavor"
+                "bundle_id": "com.owllabs.flavor"
               }
             }
           ]
