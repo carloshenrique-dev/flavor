@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
       routerConfig: router,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          type: BottomNavigationBarType.fixed,
+        ),
         useMaterial3: true,
       ),
     );
