@@ -1,7 +1,7 @@
 import 'package:flavor/core/repositories/login_repository.dart';
-import 'package:flavor/core/services/login_service.dart';
 
-import '../models/user_data.dart';
+import '../../models/user_data.dart';
+import 'login_service.dart';
 
 class LoginServiceImpl implements LoginService {
   final LoginRepository _loginRepository;

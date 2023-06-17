@@ -1,5 +1,6 @@
-import '../models/recipes.dart';
-import '../repositories/new_recipe_repository.dart';
+import '../../models/recipes.dart';
+import '../../repositories/new_recipe_repository.dart';
+
 import 'new_recipe_service.dart';
 
 class NewRecipeServiceImpl implements NewRecipeService {

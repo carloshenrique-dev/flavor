@@ -4,7 +4,6 @@ import 'package:flavor/modules/home/home_page.dart';
 import 'package:flavor/modules/new_recipe/new_recipe_page.dart';
 import 'package:flavor/modules/search/search_page.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -26,13 +25,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Flavor',
-          style: GoogleFonts.poppins(),
-        ),
         centerTitle: true,
         leading: Builder(
           builder: (context) => IconButton(
@@ -43,45 +36,37 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
       drawer: Drawer(
-        child: ListView(
-          children: [
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Sair',
-              ),
-            )
-          ],
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Sair',
+                ),
+              )
+            ],
+          ),
         ),
       ),
-      body: PageView(
-        controller: _controller,
-        scrollDirection: Axis.vertical,
-        physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (value) => setState(() {
-          _index = value;
-        }),
-        children: const [
-          HomePage(),
-          SearchPage(),
-          NewRecipePage(),
-          FavoritePage(),
-        ],
-        /*itemBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return const HomePage();
-            case 1:
-              return const SearchPage();
-
-            case 2:
-              return const NewRecipePage();
-
-            case 3:
-              return const FavoritePage();
-          }
-          return const SizedBox.shrink();
-        },*/
+      body: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: PageView(
+          controller: _controller,
+          scrollDirection: Axis.vertical,
+          physics: const NeverScrollableScrollPhysics(),
+          onPageChanged: (value) => setState(() {
+            _index = value;
+          }),
+          children: const [
+            HomePage(),
+            SearchPage(),
+            NewRecipePage(),
+            FavoritePage(),
+          ],
+        ),
       ),
       bottomNavigationBar: Theme(
         data: ThemeData(

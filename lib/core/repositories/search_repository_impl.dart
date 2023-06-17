@@ -14,19 +14,17 @@ class SearchRepositoryImpl implements SearchRepository {
   }) : _firestore = firestore;
 
   @override
-  Future<List<Recipes>> search(String word) async {
+  Future<List<Recipes>> search() async {
     try {
       final recipes = _firestore
           .collection(FirestoreCollections.recipes.name)
           .withConverter<Recipes>(
             fromFirestore: (snapshot, _) => Recipes.fromMap(snapshot.data()!),
-            toFirestore: (movie, _) => movie.toMap(),
+            toFirestore: (recipes, _) => recipes.toMap(),
           );
 
-      List<QueryDocumentSnapshot<Recipes>> recipesList = await recipes
-          .where('name', isEqualTo: word)
-          .get()
-          .then((snapshot) => snapshot.docs);
+      List<QueryDocumentSnapshot<Recipes>> recipesList =
+          await recipes.get().then((snapshot) => snapshot.docs);
 
       if (recipesList.isNotEmpty) {
         return recipesList.map((value) => value.data()).toList();

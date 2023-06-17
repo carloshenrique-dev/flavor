@@ -3,12 +3,13 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flavor/core/models/user_data.dart';
-import 'package:flavor/core/services/login_service.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../core/consts.dart';
+import '../../../core/services/login/login_service.dart';
 import '../../../firebase_options.dart';
 
 part 'login_state.dart';

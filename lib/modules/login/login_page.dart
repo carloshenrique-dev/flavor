@@ -36,9 +36,7 @@ class LoginPage extends StatelessWidget {
                   switch (state.status) {
                     case ScreenStatus.loading:
                       return const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.black,
-                        ),
+                        child: CircularProgressIndicator(),
                       );
 
                     case ScreenStatus.error:

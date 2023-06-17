@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:flavor/core/models/recipes.dart';
-import 'package:flavor/core/services/search_service.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../core/consts.dart';
+import '../../../core/services/recipe/search_service.dart';
 
 part 'search_state.dart';
 
@@ -21,7 +22,7 @@ class SearchCubit extends Cubit<SearchState> {
     try {
       emit(state.copyWith(status: ScreenStatus.loading));
 
-      final recipesList = await _searchService.search(word);
+      final recipesList = await _searchService.search();
       if (recipesList.isNotEmpty) {
         emit(state.copyWith(
           recipes: recipesList,

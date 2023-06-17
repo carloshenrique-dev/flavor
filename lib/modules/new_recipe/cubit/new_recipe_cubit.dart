@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../core/consts.dart';
-import '../../../core/services/new_recipe_service.dart';
+import '../../../core/services/recipe/new_recipe_service.dart';
 
 part 'new_recipe_state.dart';
 
