@@ -24,24 +24,24 @@ class BottomNavigationBarWidget extends StatelessWidget {
       currentIndex: index,
       onTap: onChanged,
       items: const [
-        BottomNavigationBarItem(
+        /*BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
           backgroundColor: Colors.white,
           activeIcon: BottomNavigationContainer(icon: Icons.home),
-        ),
+        ),*/
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
           label: 'Search',
           backgroundColor: Colors.white,
           activeIcon: BottomNavigationContainer(icon: Icons.search),
         ),
-        BottomNavigationBarItem(
+        /*BottomNavigationBarItem(
           icon: Icon(Icons.add),
           label: 'Add',
           backgroundColor: Colors.white,
           activeIcon: BottomNavigationContainer(icon: Icons.add),
-        ),
+        ),*/
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite),
           label: 'Collection',

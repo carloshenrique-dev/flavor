@@ -1,7 +1,7 @@
 import 'package:flavor/modules/favorite/favorite_page.dart';
 import 'package:flavor/modules/dashboard/widgets/bottom_navigation_bar_widget.dart';
-import 'package:flavor/modules/home/home_page.dart';
-import 'package:flavor/modules/new_recipe/new_recipe_page.dart';
+//import 'package:flavor/modules/home/home_page.dart';
+//import 'package:flavor/modules/new_recipe/new_recipe_page.dart';
 import 'package:flavor/modules/search/search_page.dart';
 import 'package:flutter/material.dart';
 
@@ -61,9 +61,9 @@ class _DashboardPageState extends State<DashboardPage> {
             _index = value;
           }),
           children: const [
-            HomePage(),
+            //HomePage(),
             SearchPage(),
-            NewRecipePage(),
+            //NewRecipePage(),
             FavoritePage(),
           ],
         ),

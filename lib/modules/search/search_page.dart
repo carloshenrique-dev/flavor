@@ -52,7 +52,7 @@ class SearchPage extends StatelessWidget {
               cursorColor: Colors.black,
               onFieldSubmitted: (value) async {
                 if (value.isNotEmpty) {
-                  await context.read<SearchCubit>().searchOnGemini(value);
+                  await context.read<SearchCubit>().search(value);
                 }
               },
               decoration: InputDecoration(
@@ -60,7 +60,7 @@ class SearchPage extends StatelessWidget {
                 fillColor: Colors.grey[100],
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Colors.grey[500],  
+                  color: Colors.grey[500],
                 ),
                 hintText: 'Search recipe',
                 hintStyle: GoogleFonts.poppins(
@@ -106,6 +106,21 @@ class SearchPage extends StatelessWidget {
             if (state.status == ScreenStatus.initial) {
               return const SizedBox.shrink();
             }
+            if (state.status == ScreenStatus.completed &&
+                state.recipes.isEmpty) {
+              return const Expanded(
+                child: Center(
+                  child: Text(
+                    'No recipes founded :(',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              );
+            }
+
             return Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),

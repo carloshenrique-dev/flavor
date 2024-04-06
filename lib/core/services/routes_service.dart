@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flavor/core/consts.dart';
+import 'package:flavor/core/models/recipes.dart';
 import 'package:flavor/modules/favorite/favorite_page.dart';
 import 'package:flavor/modules/login/login_page.dart';
 import 'package:flavor/modules/new_recipe/new_recipe_page.dart';
+import 'package:flavor/modules/not_found/not_found.dart';
+import 'package:flavor/modules/recipe_details/recipe_details.dart';
 import 'package:flavor/modules/search/search_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,6 +47,19 @@ final router = GoRouter(
       path: '/newRecipe',
       builder: (context, state) => const NewRecipePage(),
       name: AppRoutes.newRecipe.name,
+    ),
+    GoRoute(
+      path: '/recipeDetails',
+      name: AppRoutes.recipeDetails.name,
+      builder: (context, state) {
+        final recipe = state.extra is Recipes;
+        if (recipe) {
+          return RecipeDetails(
+            recipe: state.extra as Recipes,
+          );
+        }
+        return const NotFound();
+      },
     ),
   ],
   redirect: (context, state) {

@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flavor/core/repositories/login_repository.dart';
+import 'package:flavor/core/repositories/search_recipe_images_repository.dart';
+import 'package:flavor/core/repositories/search_recipe_images_repository_impl.dart';
 import 'package:flavor/core/repositories/search_repository.dart';
+import 'package:flavor/core/services/recipe_images/search_recipe_images_service.dart';
 import 'package:flavor/modules/new_recipe/cubit/new_recipe_cubit.dart';
 import 'package:flavor/modules/search/cubit/search_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -18,6 +21,7 @@ import 'recipe/new_recipe_service.dart';
 import 'recipe/new_recipe_service_impl.dart';
 import 'recipe/search_service.dart';
 import 'recipe/search_service_impl.dart';
+import 'recipe_images/search_recipe_images_service_impl.dart';
 
 final di = GetIt.instance;
 
@@ -81,6 +85,16 @@ Future<void> initServiceLocator() async {
   di.registerFactory<NewRecipeService>(
     () => NewRecipeServiceImpl(
       newRecipeRepository: di<NewRecipeRepository>(),
+    ),
+  );
+
+  di.registerFactory<SearchRecipeImagesRepository>(
+    () => SearchRecipeImagesRepositoryImpl(),
+  );
+
+  di.registerFactory<SearchRecipeImagesService>(
+    () => SearchRecipeImagesServiceImpl(
+      searchRecipeImagesRepository: di<SearchRecipeImagesRepository>(),
     ),
   );
 

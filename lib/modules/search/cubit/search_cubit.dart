@@ -33,7 +33,7 @@ class SearchCubit extends Cubit<SearchState> {
           status: ScreenStatus.completed,
         ));
       } else {
-        emit(state.copyWith(recipes: [], status: ScreenStatus.completed));
+        await searchOnGemini(word);
       }
     } catch (e) {
       log(e.toString());

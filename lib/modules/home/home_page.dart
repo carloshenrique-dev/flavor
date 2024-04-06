@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      //crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Receitas mais favoritadas',
