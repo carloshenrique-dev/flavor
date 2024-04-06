@@ -4,11 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 class Field extends StatelessWidget {
   final String fieldName;
   final String hintText;
+  final TextEditingController controller;
 
   const Field({
     super.key,
     required this.fieldName,
     required this.hintText,
+    required this.controller,
   });
 
   @override
@@ -26,20 +28,17 @@ class Field extends StatelessWidget {
         SizedBox(
           height: 50,
           child: Center(
-            child: TextField(
+            child: TextFormField(
               decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle:
-                    GoogleFonts.poppins(color: Colors.grey, fontSize: 14),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(12),
-                ),
               ),
+              controller: controller,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo obrigatório';
+                }
+                return null;
+              },
             ),
           ),
         ),

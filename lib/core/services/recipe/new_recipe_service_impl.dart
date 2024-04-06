@@ -11,5 +11,5 @@ class NewRecipeServiceImpl implements NewRecipeService {
   }) : _newRecipeRepository = newRecipeRepository;
 
   @override
-  Future<bool> add(Recipes recipe) async => _newRecipeRepository.add(recipe);
+  Future<void> add(Recipes recipe) async => _newRecipeRepository.add(recipe);
 }

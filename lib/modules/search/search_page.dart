@@ -14,7 +14,7 @@ class SearchPage extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         final cubit = di<SearchCubit>();
-        cubit.search('');
+        //cubit.search('');
         return cubit;
       },
       child: BlocBuilder<SearchCubit, SearchState>(
@@ -25,7 +25,7 @@ class SearchPage extends StatelessWidget {
             case ScreenStatus.completed:
               return screen();
             default:
-              return const Center(child: CircularProgressIndicator());
+              return screen();
           }
         },
       ),
@@ -52,7 +52,7 @@ class SearchPage extends StatelessWidget {
               cursorColor: Colors.black,
               onFieldSubmitted: (value) async {
                 if (value.isNotEmpty) {
-                  await context.read<SearchCubit>().search(value);
+                  await context.read<SearchCubit>().searchOnGemini(value);
                 }
               },
               decoration: InputDecoration(
@@ -60,7 +60,7 @@ class SearchPage extends StatelessWidget {
                 fillColor: Colors.grey[100],
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Colors.grey[500],
+                  color: Colors.grey[500],  
                 ),
                 hintText: 'Search recipe',
                 hintStyle: GoogleFonts.poppins(

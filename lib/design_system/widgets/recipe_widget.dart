@@ -37,10 +37,10 @@ class RecipeWidget extends StatelessWidget {
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (recipe.time != '')
+              if (recipe.preparationTime != '')
                 _mediumText(
                   context,
-                  recipe.time,
+                  recipe.preparationTime,
                 ),
               const SizedBox(
                 height: 2,

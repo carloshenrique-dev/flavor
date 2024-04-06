@@ -1,67 +1,71 @@
 class Recipes {
-  final String ingredients;
   final String name;
-  final String instructions;
-  final String time;
+  final String modeOfPreparation;
+  final Map<String, String> ingredients;
+  final String preparationTime;
+  final String levelOfDifficulty;
+
   Recipes({
-    required this.ingredients,
     required this.name,
-    required this.instructions,
-    required this.time,
+    required this.modeOfPreparation,
+    required this.ingredients,
+    required this.preparationTime,
+    required this.levelOfDifficulty,
   });
 
-  Recipes copyWith({
-    String? ingredients,
-    String? name,
-    String? instructions,
-    String? time,
-  }) {
+  factory Recipes.fromJson(Map<String, dynamic> json) {
     return Recipes(
-      ingredients: ingredients ?? this.ingredients,
-      name: name ?? this.name,
-      instructions: instructions ?? this.instructions,
-      time: time ?? this.time,
+      name: json['name'],
+      modeOfPreparation: json['modeOfPreparation'],
+      ingredients: Map<String, String>.from(json['ingredients']),
+      preparationTime: json['preparationTime'],
+      levelOfDifficulty: json['levelOfDifficulty'],
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'ingredients': ingredients,
+  Map<String, dynamic> toJson() {
+    return {
       'name': name,
-      'instructions': instructions,
-      'time': time,
+      'modeOfPreparation': modeOfPreparation,
+      'ingredients': ingredients,
+      'preparationTime': preparationTime,
+      'levelOfDifficulty': levelOfDifficulty,
     };
   }
 
   factory Recipes.fromMap(Map<String, dynamic> map) {
     return Recipes(
-      ingredients: map['ingredients'] as String,
-      name: map['name'] as String,
-      instructions: map['instructions'] as String,
-      time: map['time'] as String,
+      name: map['name'],
+      modeOfPreparation: map['modeOfPreparation'],
+      ingredients: Map<String, String>.from(map['ingredients']),
+      preparationTime: map['preparationTime'],
+      levelOfDifficulty: map['levelOfDifficulty'],
     );
   }
 
-  @override
-  String toString() {
-    return 'Recipes(ingredients: $ingredients, name: $name, instructions: $instructions, time: $time)';
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'modeOfPreparation': modeOfPreparation,
+      'ingredients': ingredients,
+      'preparationTime': preparationTime,
+      'levelOfDifficulty': levelOfDifficulty,
+    };
   }
 
-  @override
-  bool operator ==(covariant Recipes other) {
-    if (identical(this, other)) return true;
-
-    return other.ingredients == ingredients &&
-        other.name == name &&
-        other.instructions == instructions &&
-        other.time == time;
-  }
-
-  @override
-  int get hashCode {
-    return ingredients.hashCode ^
-        name.hashCode ^
-        instructions.hashCode ^
-        time.hashCode;
+  Recipes copyWith({
+    String? name,
+    String? modeOfPreparation,
+    Map<String, String>? ingredients,
+    String? preparationTime,
+    String? levelOfDifficulty,
+  }) {
+    return Recipes(
+      name: name ?? this.name,
+      modeOfPreparation: modeOfPreparation ?? this.modeOfPreparation,
+      ingredients: ingredients ?? this.ingredients,
+      preparationTime: preparationTime ?? this.preparationTime,
+      levelOfDifficulty: levelOfDifficulty ?? this.levelOfDifficulty,
+    );
   }
 }

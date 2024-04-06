@@ -19,8 +19,12 @@ class NewRecipeCubit extends Cubit<NewRecipeState> {
 
   Future<void> add() async {
     try {
-      await _newRecipeService
-          .add(Recipes(ingredients: '', name: '', instructions: '', time: ''));
+      await _newRecipeService.add(Recipes(
+          name: '',
+          modeOfPreparation: '',
+          preparationTime: '',
+          levelOfDifficulty: '',
+          ingredients: {}));
     } catch (e) {
       log(e.toString());
       emit(state.copyWith(status: ScreenStatus.error));

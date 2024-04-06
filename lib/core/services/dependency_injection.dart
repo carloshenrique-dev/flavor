@@ -5,6 +5,7 @@ import 'package:flavor/core/repositories/search_repository.dart';
 import 'package:flavor/modules/new_recipe/cubit/new_recipe_cubit.dart';
 import 'package:flavor/modules/search/cubit/search_cubit.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 
 import '../../modules/login/cubit/login_cubit.dart';
 import '../repositories/login_repository_impl.dart';
@@ -21,6 +22,9 @@ import 'recipe/search_service_impl.dart';
 final di = GetIt.instance;
 
 Future<void> initServiceLocator() async {
+  di.registerFactory<GenerativeModel>(() => GenerativeModel(
+      model: 'gemini-pro', apiKey: "AIzaSyA_aQih10F6f6LEqm_PkiJf_WkJwQ2szYk"));
+
   di.registerFactory<FirebaseAuth>(
     () => FirebaseAuth.instance,
   );
@@ -51,6 +55,7 @@ Future<void> initServiceLocator() async {
   di.registerFactory<SearchRepository>(
     () => SearchRepositoryImpl(
       firestore: di<FirebaseFirestore>(),
+      generativeModel: di<GenerativeModel>(),
     ),
   );
 
@@ -63,13 +68,13 @@ Future<void> initServiceLocator() async {
   di.registerFactory<SearchCubit>(
     () => SearchCubit(
       searchService: di<SearchService>(),
+      newRecipeService: di<NewRecipeService>(),
     ),
   );
 
   di.registerFactory<NewRecipeRepository>(
     () => NewRecipeRepositoryImpl(
       firestore: di<FirebaseFirestore>(),
-      firebaseAuth: di<FirebaseAuth>(),
     ),
   );
 
