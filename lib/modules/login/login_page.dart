@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rive/rive.dart';
 
 import '../../core/services/dependency_injection.dart';
 
@@ -15,6 +16,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocProvider(
         create: (context) => di<LoginCubit>(),
         child: SafeArea(
@@ -36,7 +38,13 @@ class LoginPage extends StatelessWidget {
                   switch (state.status) {
                     case ScreenStatus.loading:
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: SizedBox(
+                          height: 200,
+                          child: RiveAnimation.asset(
+                            'assets/animations/loading.riv',
+                            fit: BoxFit.scaleDown,
+                          ),
+                        ),
                       );
 
                     case ScreenStatus.error:

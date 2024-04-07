@@ -35,8 +35,8 @@ class SearchCubit extends Cubit<SearchState> {
       } else {
         await searchOnGemini(word);
       }
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
       emit(state.copyWith(status: ScreenStatus.error));
     }
   }
@@ -53,8 +53,27 @@ class SearchCubit extends Cubit<SearchState> {
       } else {
         emit(state.copyWith(recipes: [], status: ScreenStatus.completed));
       }
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      emit(state.copyWith(status: ScreenStatus.error));
+    }
+  }
+
+  Future<void> getRecentRecipes() async {
+    try {
+      emit(state.copyWith(status: ScreenStatus.loading));
+
+      final recipesList = await _searchService.getRecentRecipes();
+      if (recipesList.isNotEmpty) {
+        emit(state.copyWith(
+          recipes: recipesList,
+          status: ScreenStatus.completed,
+        ));
+      } else {
+        emit(state.copyWith(recipes: [], status: ScreenStatus.completed));
+      }
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
       emit(state.copyWith(status: ScreenStatus.error));
     }
   }
@@ -62,8 +81,9 @@ class SearchCubit extends Cubit<SearchState> {
   Future<void> addNewRecipeFromGemini(Recipes recipes) async {
     try {
       await _newRecipeService.add(recipes);
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      emit(state.copyWith(status: ScreenStatus.error));
     }
   }
 

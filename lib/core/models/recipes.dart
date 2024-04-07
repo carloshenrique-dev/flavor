@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Recipes {
   final String name;
   final String modeOfPreparation;
@@ -44,12 +46,15 @@ class Recipes {
   }
 
   Map<String, dynamic> toMap() {
+    Timestamp timestamp = Timestamp.now();
+
     return {
       'name': name,
       'modeOfPreparation': modeOfPreparation,
       'ingredients': ingredients,
       'preparationTime': preparationTime,
       'levelOfDifficulty': levelOfDifficulty,
+      'timestamp': timestamp,
     };
   }
 

@@ -35,8 +35,8 @@ class SearchRepositoryImpl implements SearchRepository {
           .toList();
 
       return recipes;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
       return [];
     }
   }
@@ -48,7 +48,7 @@ class SearchRepositoryImpl implements SearchRepository {
         [
           Content.multi({
             TextPart(
-                'Generate a recipe according to the word provided: $value. Provide your response as a JSON object with the following schema: {"name": "", "modeOfPreparation": "", "ingredients": {"key": "value", "key": "value", "key": "value"}, "preparationTime": "", "levelOfDifficulty": ""}. Do not include any profanity in your response. Make sure there are no empty values in the ingredients, always provide quantities. Do not include any null value in your response, neither in keys nor in values in the JSON object returned. Provide the recipes in Brazilian Portuguese. Do not return your result as Markdown.')
+                'Generate a recipe according to the word provided: $value. Provide your response as a JSON object with the following schema: {"name": "", "modeOfPreparation": "", "ingredients": {"key": "value", "key": "value", "key": "value"}, "preparationTime": "", "levelOfDifficulty": "", "timestamp": ""}. Do not include any profanity in your response. Make sure there are no empty values in the ingredients, always provide quantities. Do not include any null value in your response, neither in keys nor in values in the JSON object returned. Provide the recipes in Brazilian Portuguese. Do not return your result as Markdown.')
           })
         ],
       );
@@ -62,5 +62,26 @@ class SearchRepositoryImpl implements SearchRepository {
       log(e.toString(), stackTrace: s);
     }
     return null;
+  }
+
+  @override
+  Future<List<Recipes>> getRecentRecipes() async {
+    try {
+      final querySnapshot = await _firestore
+          .collection(FirestoreCollections.recipes.name)
+          .orderBy('timestamp', descending: true)
+          .limit(15)
+          .get();
+
+      // Access documents and convert to Recipe objects
+      final recipes = querySnapshot.docs
+          .map((documentSnapshot) => Recipes.fromMap(documentSnapshot.data()))
+          .toList();
+
+      return recipes;
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      return [];
+    }
   }
 }

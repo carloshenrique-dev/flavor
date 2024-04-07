@@ -1,9 +1,12 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flavor/core/consts.dart';
 import 'package:flavor/modules/favorite/favorite_page.dart';
 import 'package:flavor/modules/dashboard/widgets/bottom_navigation_bar_widget.dart';
-//import 'package:flavor/modules/home/home_page.dart';
-//import 'package:flavor/modules/new_recipe/new_recipe_page.dart';
 import 'package:flavor/modules/search/search_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -20,6 +23,15 @@ class _DashboardPageState extends State<DashboardPage> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<bool> signOut() async {
+    try {
+      return await FirebaseAuth.instance.signOut().then((value) => true);
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      return false;
+    }
   }
 
   @override
@@ -41,7 +53,12 @@ class _DashboardPageState extends State<DashboardPage> {
           child: ListView(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final result = await signOut();
+                  if (result && context.mounted) {
+                    context.pushReplacementNamed(AppRoutes.login.name);
+                  }
+                },
                 child: const Text(
                   'Sair',
                 ),

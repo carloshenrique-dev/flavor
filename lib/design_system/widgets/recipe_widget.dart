@@ -37,13 +37,13 @@ class RecipeWidget extends StatelessWidget {
           if (recipe.preparationTime != '')
             _mediumText(
               context: context,
-              title: "Preparation Time: ",
+              title: "Tempo de preparo: ",
               content: recipe.preparationTime,
             ),
           if (recipe.levelOfDifficulty != '')
             _mediumText(
               context: context,
-              title: "Difficulty level: ",
+              title: "Nível de dificuldade: ",
               content: recipe.levelOfDifficulty,
             ),
         ],

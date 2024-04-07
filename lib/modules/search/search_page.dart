@@ -5,6 +5,7 @@ import 'package:flavor/modules/search/cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rive/rive.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -14,7 +15,7 @@ class SearchPage extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         final cubit = di<SearchCubit>();
-        //cubit.search('');
+        cubit.getRecentRecipes();
         return cubit;
       },
       child: BlocBuilder<SearchCubit, SearchState>(
@@ -37,11 +38,13 @@ class SearchPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'What recipe are you looking for today?',
+          'Qual receita você esta procurando hoje?',
           style: GoogleFonts.poppins(
             fontSize: 28,
             fontWeight: FontWeight.bold,
           ),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
         ),
         const SizedBox(
           height: 20,
@@ -62,7 +65,7 @@ class SearchPage extends StatelessWidget {
                   Icons.search,
                   color: Colors.grey[500],
                 ),
-                hintText: 'Search recipe',
+                hintText: 'Procurar receita',
                 hintStyle: GoogleFonts.poppins(
                   color: Colors.grey[500],
                 ),
@@ -98,8 +101,24 @@ class SearchPage extends StatelessWidget {
           builder: (context, state) {
             if (state.status == ScreenStatus.loading) {
               return const Expanded(
-                child: Center(
-                  child: CircularProgressIndicator(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: RiveAnimation.asset(
+                        'assets/animations/loading_search.riv',
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    Text(
+                      'Estamos procurando sua receita...',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
                 ),
               );
             }
@@ -111,7 +130,7 @@ class SearchPage extends StatelessWidget {
               return const Expanded(
                 child: Center(
                   child: Text(
-                    'No recipes founded :(',
+                    'Nenhuma receita encontrada :(',
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,

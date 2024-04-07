@@ -11,8 +11,14 @@ class SearchServiceImpl implements SearchService {
   }) : _searchRepository = searchRepository;
 
   @override
-  Future<List<Recipes>> search(String value) async => _searchRepository.search(value);
-  
+  Future<List<Recipes>> search(String value) async =>
+      _searchRepository.search(value);
+
   @override
-  Future<Recipes?> searchOnGemini(String value) async => _searchRepository.searchOnGemini(value);
+  Future<Recipes?> searchOnGemini(String value) async =>
+      _searchRepository.searchOnGemini(value);
+
+  @override
+  Future<List<Recipes>> getRecentRecipes() async =>
+      _searchRepository.getRecentRecipes();
 }

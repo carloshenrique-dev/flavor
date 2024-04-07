@@ -7,14 +7,6 @@ import 'core/services/routes_service.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  //const geminyKey = "AIzaSyA_aQih10F6f6LEqm_PkiJf_WkJwQ2szYk";
-
-  //final apiKey = Platform.environment['API_KEY'];
-  /*if (apiKey == null) {
-    print('No \$API_KEY environment variable');
-    exit(1);
-  }*/
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
