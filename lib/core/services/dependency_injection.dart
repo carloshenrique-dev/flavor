@@ -22,6 +22,7 @@ import 'recipe/new_recipe_service_impl.dart';
 import 'recipe/search_service.dart';
 import 'recipe/search_service_impl.dart';
 import 'recipe_images/search_recipe_images_service_impl.dart';
+import 'remote_config_service.dart';
 
 final di = GetIt.instance;
 
@@ -102,5 +103,9 @@ Future<void> initServiceLocator() async {
     () => NewRecipeCubit(
       newRecipeService: di<NewRecipeService>(),
     ),
+  );
+
+  di.registerFactory<FirebaseRemoteConfigService>(
+    () => FirebaseRemoteConfigService(),
   );
 }

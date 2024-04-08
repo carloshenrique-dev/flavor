@@ -82,36 +82,43 @@ class _RecipeDetailsState extends State<RecipeDetails> {
             else
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: 200,
+                height: 150,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: _photoResponse!.photos.length,
                   itemBuilder: (ctx, index) {
                     if (_photoResponse!.photos[index].src['original'] != null) {
-                      return Image.network(
-                        _photoResponse!.photos[index].src['original']!,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) {
-                            return child;
-                          } else {
-                            return Shimmer.fromColors(
-                              baseColor: Colors.black.withOpacity(0.6),
-                              highlightColor: Colors.black.withOpacity(0.8),
-                              child: Container(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      (MediaQuery.of(context).size.width / 2) -
-                                          10,
-                                  minHeight: 200,
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          _photoResponse!.photos[index].src['original']!,
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return Shimmer.fromColors(
+                                baseColor: Colors.black.withOpacity(0.6),
+                                highlightColor: Colors.black.withOpacity(0.8),
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                    maxWidth:
+                                        (MediaQuery.of(context).size.width /
+                                                2) -
+                                            10,
+                                    minHeight: 200,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
                                 ),
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                            );
-                          }
-                        },
+                              );
+                            }
+                          },
+                        ),
                       );
                     }
                     return const SizedBox.shrink();

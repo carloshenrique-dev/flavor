@@ -3,6 +3,7 @@ import 'package:flavor/design_system/images/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'core/services/remote_config_service.dart';
 import 'core/services/routes_service.dart';
 import 'firebase_options.dart';
 
@@ -12,6 +13,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await FirebaseRemoteConfigService().initialize();
 
   initServiceLocator();
 
