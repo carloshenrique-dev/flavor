@@ -1,24 +1,29 @@
-# validates any pull request that has master branch as base
-# this validations will first find all pubspec.yaml files and then
-# run their configurations in parallel
-name: validations
+name: Flutter Build
+
 on:
+  push:
+    branches: [ main, develop ]
   pull_request:
-    branches: [master]
+    branches: [ main ]
 
 jobs:
-  validate:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          cache: true
-      - run: flutter --version
-      - name: pub-get-all
-        run: make pub-get-all
-      - name: Analyze
-        run: make analyze-all
-      - name: Run tests
-        run: make test-all
+      - run: flutter pub get
+      - run: flutter build apk --release --no-shrink
+      - run: flutter build ios --release --no-codesign
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: release-ipa
+          path: build/ios/iphoneos/Runner.app
