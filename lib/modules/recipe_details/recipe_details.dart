@@ -46,6 +46,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           widget.recipe.name,
           style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
